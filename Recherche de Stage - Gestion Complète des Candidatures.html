@@ -1,0 +1,2800 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ITStage Pilot - Recherche de Stage</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #4361ee;
+            --primary-dark: #3a56d4;
+            --secondary: #7209b7;
+            --success: #4cc9f0;
+            --warning: #f72585;
+            --danger: #e63946;
+            --light: #f8f9fa;
+            --dark: #212529;
+            --gray: #6c757d;
+            --light-gray: #e9ecef;
+            --border-radius: 12px;
+            --shadow: 0 8px 30px rgba(0,0,0,0.08);
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+            color: var(--dark);
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 280px 1fr;
+            gap: 25px;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            background: white;
+            border-radius: var(--border-radius);
+            padding: 25px;
+            box-shadow: var(--shadow);
+            height: fit-content;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid var(--light-gray);
+        }
+
+        .logo i {
+            font-size: 2em;
+            color: var(--primary);
+        }
+
+        .logo-text {
+            font-weight: 700;
+            font-size: 1.3em;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .nav-section {
+            margin-bottom: 30px;
+        }
+
+        .nav-title {
+            font-size: 0.85em;
+            text-transform: uppercase;
+            color: var(--gray);
+            margin-bottom: 15px;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+        }
+
+        .nav-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 15px;
+            border-radius: 10px;
+            margin-bottom: 8px;
+            cursor: pointer;
+            transition: var(--transition);
+            color: var(--dark);
+            text-decoration: none;
+            border: none;
+            background: none;
+            width: 100%;
+            text-align: left;
+            font-size: 1em;
+        }
+
+        .nav-item:hover, .nav-item.active {
+            background: var(--primary);
+            color: white;
+        }
+
+        .nav-item i {
+            width: 20px;
+            text-align: center;
+        }
+
+        .progress-section {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 20px;
+            border-radius: var(--border-radius);
+            margin-top: 20px;
+        }
+
+        .progress-title {
+            font-size: 0.9em;
+            margin-bottom: 10px;
+            opacity: 0.9;
+        }
+
+        .progress-bar {
+            height: 8px;
+            background: rgba(255,255,255,0.3);
+            border-radius: 10px;
+            overflow: hidden;
+            margin-bottom: 10px;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: white;
+            border-radius: 10px;
+            transition: width 0.3s ease;
+        }
+
+        .progress-text {
+            font-size: 0.8em;
+            opacity: 0.9;
+        }
+
+        /* Main Content */
+        .main-content {
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+        }
+
+        .header {
+            background: white;
+            padding: 25px 30px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .header h1 {
+            color: var(--dark);
+            font-weight: 700;
+            font-size: 1.8em;
+        }
+
+        .header-actions {
+            display: flex;
+            gap: 15px;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.9em;
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            background: var(--light-gray);
+            color: var(--dark);
+        }
+
+        .btn-secondary:hover {
+            background: #dee2e6;
+        }
+
+        .btn-success {
+            background: #28a745;
+            color: white;
+        }
+
+        .btn-success:hover {
+            background: #218838;
+            transform: translateY(-2px);
+        }
+
+        /* Stats Grid */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 20px;
+        }
+
+        .stat-card {
+            background: white;
+            padding: 25px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            transition: var(--transition);
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .stat-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5em;
+        }
+
+        .stat-icon.primary { background: #e0e7ff; color: var(--primary); }
+        .stat-icon.success { background: #d1fae5; color: #10b981; }
+        .stat-icon.warning { background: #fef3c7; color: #f59e0b; }
+        .stat-icon.danger { background: #fee2e2; color: #ef4444; }
+
+        .stat-info {
+            flex: 1;
+        }
+
+        .stat-number {
+            font-size: 2em;
+            font-weight: 700;
+            display: block;
+            line-height: 1;
+        }
+
+        .stat-label {
+            color: var(--gray);
+            font-size: 0.9em;
+        }
+
+        /* Content Grid */
+        .content-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 25px;
+        }
+
+        .card {
+            background: white;
+            border-radius: var(--border-radius);
+            padding: 25px;
+            box-shadow: var(--shadow);
+            margin-bottom: 0;
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .card-title {
+            font-size: 1.3em;
+            font-weight: 600;
+        }
+
+        .filters {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            padding: 8px 16px;
+            border: 2px solid var(--light-gray);
+            background: white;
+            color: var(--gray);
+            border-radius: 20px;
+            cursor: pointer;
+            transition: var(--transition);
+            font-size: 0.9em;
+            font-weight: 500;
+        }
+
+        .filter-btn.active,
+        .filter-btn:hover {
+            border-color: var(--primary);
+            background: var(--primary);
+            color: white;
+        }
+
+        .candidatures-list {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            max-height: 600px;
+            overflow-y: auto;
+            padding-right: 10px;
+        }
+
+        .candidature-item {
+            background: var(--light);
+            padding: 20px;
+            border-radius: 10px;
+            border-left: 4px solid var(--primary);
+            transition: var(--transition);
+        }
+
+        .candidature-item:hover {
+            transform: translateX(5px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .candidature-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: start;
+            margin-bottom: 10px;
+        }
+
+        .entreprise {
+            font-weight: 600;
+            font-size: 1.1em;
+            color: var(--dark);
+        }
+
+        .poste {
+            color: var(--primary);
+            margin-bottom: 10px;
+            font-weight: 500;
+        }
+
+        .candidature-meta {
+            display: flex;
+            gap: 15px;
+            font-size: 0.85em;
+            color: var(--gray);
+            margin-bottom: 10px;
+            flex-wrap: wrap;
+        }
+
+        .status-badge {
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.8em;
+            font-weight: 600;
+        }
+
+        .status-a-postuler { background: #fff3cd; color: #856404; }
+        .status-envoyee { background: #d1ecf1; color: #0c5460; }
+        .status-relancee { background: #d4edda; color: #155724; }
+        .status-entretien { background: #cce7ff; color: #004085; }
+        .status-refus { background: #f8d7da; color: #721c24; }
+        .status-accepte { background: #d4edda; color: #155724; }
+
+        .task-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .task-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 15px;
+            background: var(--light);
+            border-radius: 10px;
+            transition: var(--transition);
+        }
+
+        .task-item:hover {
+            background: #e9ecef;
+        }
+
+        .task-checkbox {
+            width: 20px;
+            height: 20px;
+            border: 2px solid var(--gray);
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .task-checkbox.checked {
+            background: var(--primary);
+            border-color: var(--primary);
+            color: white;
+        }
+
+        .task-content {
+            flex: 1;
+        }
+
+        .task-title {
+            font-weight: 500;
+            margin-bottom: 5px;
+        }
+
+        .task-meta {
+            font-size: 0.8em;
+            color: var(--gray);
+        }
+
+        .task-actions {
+            display: flex;
+            gap: 8px;
+        }
+
+        .task-action {
+            background: none;
+            border: none;
+            color: var(--gray);
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .task-action:hover {
+            color: var(--primary);
+        }
+
+        /* Calendar */
+        .calendar {
+            width: 100%;
+        }
+
+        .calendar-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .calendar-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 5px;
+        }
+
+        .calendar-day {
+            padding: 10px;
+            text-align: center;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: var(--transition);
+            min-height: 60px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.9em;
+        }
+
+        .calendar-day.header {
+            font-weight: 600;
+            color: var(--gray);
+            background: none;
+            cursor: default;
+            padding: 10px 5px;
+        }
+
+        .calendar-day:hover:not(.header) {
+            background: var(--light-gray);
+        }
+
+        .calendar-day.today {
+            background: var(--primary);
+            color: white;
+        }
+
+        .calendar-day.has-event {
+            background: #e0e7ff;
+            border: 2px solid var(--primary);
+        }
+
+        .calendar-event-dot {
+            width: 6px;
+            height: 6px;
+            background: var(--primary);
+            border-radius: 50%;
+            margin-top: 2px;
+        }
+
+        /* Documents */
+        .documents-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+        }
+
+        .document-card {
+            background: var(--light);
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            transition: var(--transition);
+            cursor: pointer;
+            border: 2px solid transparent;
+        }
+
+        .document-card:hover {
+            transform: translateY(-5px);
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+
+        .document-icon {
+            font-size: 2em;
+            margin-bottom: 10px;
+        }
+
+        /* Entreprises List */
+        .entreprises-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .entreprise-card {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: var(--shadow);
+            border-left: 4px solid var(--primary);
+            transition: var(--transition);
+        }
+
+        .entreprise-card:hover {
+            transform: translateY(-3px);
+        }
+
+        .entreprise-card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: start;
+            margin-bottom: 10px;
+        }
+
+        .entreprise-name {
+            font-weight: 600;
+            font-size: 1.1em;
+            color: var(--dark);
+        }
+
+        .entreprise-type {
+            background: var(--light-gray);
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-size: 0.8em;
+            color: var(--gray);
+        }
+
+        .entreprise-details {
+            color: var(--gray);
+            font-size: 0.9em;
+            margin-bottom: 10px;
+        }
+
+        .entreprise-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 5px;
+            margin-bottom: 15px;
+        }
+
+        .tag {
+            background: #e0e7ff;
+            color: var(--primary);
+            padding: 2px 8px;
+            border-radius: 10px;
+            font-size: 0.8em;
+        }
+
+        /* Tableau de Ciblage */
+        .table-responsive {
+            overflow-x: auto;
+            margin-top: 20px;
+        }
+
+        .targeting-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.85em;
+        }
+
+        .targeting-table th {
+            background: var(--primary);
+            color: white;
+            padding: 12px 8px;
+            text-align: left;
+            font-weight: 600;
+            border-bottom: 2px solid var(--primary-dark);
+            white-space: nowrap;
+        }
+
+        .targeting-table td {
+            padding: 8px;
+            border-bottom: 1px solid var(--light-gray);
+            vertical-align: top;
+            max-width: 150px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .targeting-table tr:hover {
+            background: var(--light-gray);
+        }
+
+        .response-badge {
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-size: 0.8em;
+            font-weight: 600;
+            display: inline-block;
+        }
+
+        .response-pending { background: #fff3cd; color: #856404; }
+        .response-yes { background: #d4edda; color: #155724; }
+        .response-no { background: #f8d7da; color: #721c24; }
+        .response-maybe { background: #cce7ff; color: #004085; }
+
+        .company-cell {
+            font-weight: 600;
+            color: var(--dark);
+        }
+
+        .targeting-actions {
+            display: flex;
+            gap: 5px;
+            flex-wrap: wrap;
+        }
+
+        .targeting-actions .btn {
+            padding: 4px 8px;
+            font-size: 0.8em;
+        }
+
+        /* Modal Onglets */
+        .modal-tabs {
+            display: flex;
+            gap: 5px;
+            margin-bottom: 20px;
+            border-bottom: 2px solid var(--light-gray);
+        }
+
+        .modal-tab {
+            padding: 10px 20px;
+            background: none;
+            border: none;
+            border-bottom: 2px solid transparent;
+            cursor: pointer;
+            font-weight: 500;
+            color: var(--gray);
+            transition: var(--transition);
+        }
+
+        .modal-tab.active {
+            color: var(--primary);
+            border-bottom-color: var(--primary);
+        }
+
+        .modal-tab:hover:not(.active) {
+            color: var(--dark);
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .modal-content {
+            background: white;
+            padding: 30px;
+            border-radius: var(--border-radius);
+            width: 90%;
+            max-width: 800px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+        }
+
+        .modal-title {
+            font-size: 1.5em;
+            font-weight: 600;
+        }
+
+        .close-btn {
+            background: none;
+            border: none;
+            font-size: 1.5em;
+            cursor: pointer;
+            color: var(--gray);
+            transition: var(--transition);
+        }
+
+        .close-btn:hover {
+            color: var(--danger);
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group.full-width {
+            grid-column: 1 / -1;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 6px;
+            font-weight: 500;
+            color: var(--dark);
+            font-size: 0.9em;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 10px 12px;
+            border: 2px solid var(--light-gray);
+            border-radius: 6px;
+            font-size: 0.9em;
+            transition: var(--transition);
+        }
+
+        .form-control:focus {
+            border-color: var(--primary);
+            outline: none;
+        }
+
+        .form-actions {
+            display: flex;
+            gap: 12px;
+            justify-content: flex-end;
+            margin-top: 25px;
+            padding-top: 20px;
+            border-top: 1px solid var(--light-gray);
+        }
+
+        /* Notifications */
+        .notification-container {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1100;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .notification {
+            background: white;
+            padding: 15px 20px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            border-left: 4px solid var(--primary);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            transform: translateX(400px);
+            transition: transform 0.3s ease;
+        }
+
+        .notification.show {
+            transform: translateX(0);
+        }
+
+        .notification i {
+            font-size: 1.2em;
+        }
+
+        .notification.success { border-color: #10b981; }
+        .notification.warning { border-color: #f59e0b; }
+        .notification.danger { border-color: #ef4444; }
+
+        /* Page Sections */
+        .page-section {
+            display: none;
+        }
+
+        .page-section.active {
+            display: block;
+        }
+
+        /* Email Templates */
+        .email-template {
+            margin-bottom: 25px;
+            padding: 20px;
+            background: var(--light);
+            border-radius: 10px;
+        }
+
+        .email-template h3 {
+            margin-bottom: 15px;
+            color: var(--dark);
+        }
+
+        /* Statistics */
+        .stats-chart {
+            background: var(--light);
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+
+        .chart-bar {
+            height: 30px;
+            background: var(--primary);
+            margin-bottom: 10px;
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            padding: 0 15px;
+            color: white;
+            font-weight: 500;
+            transition: width 0.5s ease;
+        }
+
+        /* Template Preview Modal */
+        .template-preview {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            white-space: pre-wrap;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9em;
+            max-height: 400px;
+            overflow-y: auto;
+            border: 1px solid var(--light-gray);
+        }
+
+        .preview-actions {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .container {
+                grid-template-columns: 1fr;
+            }
+            
+            .content-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .modal-content {
+                max-width: 95%;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .header {
+                flex-direction: column;
+                gap: 15px;
+                align-items: start;
+            }
+            
+            .header-actions {
+                width: 100%;
+                justify-content: space-between;
+            }
+            
+            .modal-tabs {
+                flex-wrap: wrap;
+            }
+            
+            .modal-tab {
+                padding: 8px 12px;
+                font-size: 0.9em;
+            }
+            
+            .calendar-grid {
+                grid-template-columns: repeat(7, 1fr);
+                font-size: 0.8em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Notifications -->
+    <div class="notification-container" id="notificationContainer"></div>
+
+    <div class="container">
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <div class="logo">
+                <i class="fas fa-rocket"></i>
+                <div class="logo-text">ITStage Pilot</div>
+            </div>
+
+            <div class="nav-section">
+                <div class="nav-title">Navigation</div>
+                <button class="nav-item active" onclick="showPage('dashboard')">
+                    <i class="fas fa-home"></i>
+                    Tableau de bord
+                </button>
+                <button class="nav-item" onclick="showPage('candidatures')">
+                    <i class="fas fa-briefcase"></i>
+                    Mes candidatures
+                </button>
+                <button class="nav-item" onclick="showPage('targeting')">
+                    <i class="fas fa-bullseye"></i>
+                    Tableau de Ciblage
+                </button>
+                <button class="nav-item" onclick="showPage('calendar')">
+                    <i class="fas fa-calendar-alt"></i>
+                    Calendrier
+                </button>
+                <button class="nav-item" onclick="showPage('tasks')">
+                    <i class="fas fa-tasks"></i>
+                    Tâches
+                </button>
+            </div>
+
+            <div class="nav-section">
+                <div class="nav-title">Outils</div>
+                <button class="nav-item" onclick="showPage('documents')">
+                    <i class="fas fa-file-alt"></i>
+                    Modèles de documents
+                </button>
+                <button class="nav-item" onclick="showPage('entreprises')">
+                    <i class="fas fa-building"></i>
+                    Entreprises Montpellier
+                </button>
+                <button class="nav-item" onclick="showPage('emails')">
+                    <i class="fas fa-envelope"></i>
+                    Emails de relance
+                </button>
+                <button class="nav-item" onclick="showPage('statistics')">
+                    <i class="fas fa-chart-bar"></i>
+                    Statistiques
+                </button>
+            </div>
+
+            <div class="progress-section">
+                <div class="progress-title">Progression de la recherche</div>
+                <div class="progress-bar">
+                    <div class="progress-fill" id="globalProgress"></div>
+                </div>
+                <div class="progress-text" id="progressText">0% - 0/20 candidatures</div>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <!-- Dashboard Page -->
+            <div id="dashboard" class="page-section active">
+                <div class="header">
+                    <h1>PLATEFORME DE GESTION - RECHERCHE STAGE</h1>
+                    <div class="header-actions">
+                        <button class="btn btn-secondary" onclick="refreshData()">
+                            <i class="fas fa-sync-alt"></i>
+                            Actualiser
+                        </button>
+                        <button class="btn btn-success" onclick="exportToPDF()">
+                            <i class="fas fa-file-pdf"></i>
+                            Exporter PDF
+                        </button>
+                        <button class="btn btn-primary" onclick="openUniversalModal('candidature')">
+                            <i class="fas fa-plus"></i>
+                            Nouvelle Entrée
+                        </button>
+                    </div>
+                </div>
+
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-icon primary">
+                            <i class="fas fa-paper-plane"></i>
+                        </div>
+                        <div class="stat-info">
+                            <span class="stat-number" id="totalCandidatures">0</span>
+                            <span class="stat-label">Candidatures envoyées</span>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon success">
+                            <i class="fas fa-calendar-check"></i>
+                        </div>
+                        <div class="stat-info">
+                            <span class="stat-number" id="entretiensPlanifies">0</span>
+                            <span class="stat-label">Entretiens planifiés</span>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon warning">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                        <div class="stat-info">
+                            <span class="stat-number" id="candidaturesEnAttente">0</span>
+                            <span class="stat-label">En attente de réponse</span>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon danger">
+                            <i class="fas fa-bullseye"></i>
+                        </div>
+                        <div class="stat-info">
+                            <span class="stat-number" id="tauxReponse">0%</span>
+                            <span class="stat-label">Taux de réponse</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="content-grid">
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="card-title">Dernières Candidatures</div>
+                            <button class="btn btn-secondary" onclick="openUniversalModal('candidature')">
+                                <i class="fas fa-plus"></i>
+                                Ajouter
+                            </button>
+                        </div>
+                        <div class="filters">
+                            <button class="filter-btn active" onclick="filterCandidatures('all')">Toutes</button>
+                            <button class="filter-btn" onclick="filterCandidatures('À postuler')">À postuler</button>
+                            <button class="filter-btn" onclick="filterCandidatures('Envoyée')">Envoyées</button>
+                            <button class="filter-btn" onclick="filterCandidatures('Relancée')">Relancées</button>
+                            <button class="filter-btn" onclick="filterCandidatures('Entretien')">Entretiens</button>
+                        </div>
+                        <div class="candidatures-list" id="candidaturesList">
+                            <!-- Les candidatures seront ajoutées ici -->
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="card-title">Tâches du Jour</div>
+                            <button class="btn btn-secondary" onclick="openTaskModal()">
+                                <i class="fas fa-plus"></i>
+                                Ajouter
+                            </button>
+                        </div>
+                        <div class="task-list" id="taskList">
+                            <!-- Les tâches seront ajoutées ici -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tableau de Ciblage Page -->
+            <div id="targeting" class="page-section">
+                <div class="header">
+                    <h1>Tableau de Ciblage des Entreprises</h1>
+                    <div class="header-actions">
+                        <button class="btn btn-success" onclick="exportTargetingToCSV()">
+                            <i class="fas fa-file-excel"></i>
+                            Exporter CSV
+                        </button>
+                        <button class="btn btn-primary" onclick="openUniversalModal('targeting')">
+                            <i class="fas fa-plus"></i>
+                            Nouvelle Entrée
+                        </button>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="table-responsive">
+                        <table class="targeting-table" id="targetingTable">
+                            <thead>
+                                <tr>
+                                    <th>Entreprise</th>
+                                    <th>Contact</th>
+                                    <th>Localisation</th>
+                                    <th>Secteur</th>
+                                    <th>Type</th>
+                                    <th>Poste</th>
+                                    <th>Statut</th>
+                                    <th>Dates</th>
+                                    <th>Réponse</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="targetingList">
+                                <!-- Les entrées seront ajoutées ici -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Page Candidatures -->
+            <div id="candidatures" class="page-section">
+                <div class="header">
+                    <h1>Toutes mes Candidatures</h1>
+                    <div class="header-actions">
+                        <button class="btn btn-success" onclick="exportToPDF()">
+                            <i class="fas fa-file-pdf"></i>
+                            Exporter PDF
+                        </button>
+                        <button class="btn btn-primary" onclick="openUniversalModal('candidature')">
+                            <i class="fas fa-plus"></i>
+                            Nouvelle Candidature
+                        </button>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="candidatures-list" id="allCandidaturesList">
+                        <!-- Toutes les candidatures -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Page Calendrier -->
+            <div id="calendar" class="page-section">
+                <div class="header">
+                    <h1>Calendrier des Entretiens</h1>
+                    <div class="header-actions">
+                        <button class="btn btn-success" onclick="exportToPDF()">
+                            <i class="fas fa-file-pdf"></i>
+                            Exporter PDF
+                        </button>
+                        <button class="btn btn-primary" onclick="openUniversalModal('candidature')">
+                            <i class="fas fa-plus"></i>
+                            Nouvel Entretien
+                        </button>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="calendar" id="calendarView">
+                        <!-- Calendrier -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Page Tâches -->
+            <div id="tasks" class="page-section">
+                <div class="header">
+                    <h1>Gestion des Tâches</h1>
+                    <div class="header-actions">
+                        <button class="btn btn-success" onclick="exportToPDF()">
+                            <i class="fas fa-file-pdf"></i>
+                            Exporter PDF
+                        </button>
+                        <button class="btn btn-primary" onclick="openTaskModal()">
+                            <i class="fas fa-plus"></i>
+                            Nouvelle Tâche
+                        </button>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="task-list" id="allTasksList">
+                        <!-- Toutes les tâches -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Page Modèles de documents -->
+            <div id="documents" class="page-section">
+                <div class="header">
+                    <h1>Modèles de Documents</h1>
+                    <button class="btn btn-success" onclick="exportToPDF()">
+                        <i class="fas fa-file-pdf"></i>
+                        Exporter PDF
+                    </button>
+                </div>
+                <div class="card">
+                    <div class="documents-grid">
+                        <div class="document-card" onclick="previewTemplate('cv')">
+                            <div class="document-icon">
+                                <i class="fas fa-file-alt"></i>
+                            </div>
+                            <h3>Modèle de CV</h3>
+                            <p>Template professionnel IT</p>
+                        </div>
+                        <div class="document-card" onclick="previewTemplate('lettre')">
+                            <div class="document-icon">
+                                <i class="fas fa-envelope"></i>
+                            </div>
+                            <h3>Lettre de Motivation</h3>
+                            <p>Modèle personnalisable</p>
+                        </div>
+                        <div class="document-card" onclick="previewTemplate('relance')">
+                            <div class="document-icon">
+                                <i class="fas fa-bell"></i>
+                            </div>
+                            <h3>Email de Relance</h3>
+                            <p>Template professionnel</p>
+                        </div>
+                        <div class="document-card" onclick="previewTemplate('suivi')">
+                            <div class="document-icon">
+                                <i class="fas fa-chart-line"></i>
+                            </div>
+                            <h3>Tableau de Suivi</h3>
+                            <p>Excel de gestion</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Page Entreprises -->
+            <div id="entreprises" class="page-section">
+                <div class="header">
+                    <h1>Entreprises IT à Montpellier</h1>
+                    <div class="header-actions">
+                        <button class="btn btn-success" onclick="exportToPDF()">
+                            <i class="fas fa-file-pdf"></i>
+                            Exporter PDF
+                        </button>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="entreprises-grid" id="entreprisesList">
+                        <!-- Entreprises seront ajoutées ici -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Page Emails -->
+            <div id="emails" class="page-section">
+                <div class="header">
+                    <h1>Modèles d'Emails de Relance</h1>
+                    <button class="btn btn-success" onclick="exportToPDF()">
+                        <i class="fas fa-file-pdf"></i>
+                        Exporter PDF
+                    </button>
+                </div>
+                <div class="card">
+                    <div class="email-templates">
+                        <div class="email-template">
+                            <h3>Relance standard</h3>
+                            <textarea class="form-control" rows="6" readonly>
+Objet: Relance candidature - Stage Administrateur Infrastructure
+
+Madame, Monsieur,
+
+Je me permets de relancer ma candidature pour le stage d'Administrateur Infrastructure Sécurisée.
+
+Mon vif intérêt pour votre entreprise et les missions proposées me pousse à rester à votre disposition pour un éventuel entretien.
+
+Dans l'attente de votre retour, je vous prie d'agréer, Madame, Monsieur, l'expression de mes salutations distinguées.
+
+[CIVILITE] [PRENOM] [NOM]
+[FORMATION]
+[TÉLÉPHONE]
+[EMAIL]</textarea>
+                            <button class="btn btn-primary" onclick="copyEmailTemplate(this)">Copier le modèle</button>
+                        </div>
+                        <div class="email-template">
+                            <h3>Relance après entretien</h3>
+                            <textarea class="form-control" rows="6" readonly>
+Objet: Suite à notre entretien - Stage Administrateur Infrastructure
+
+Madame, Monsieur,
+
+Je vous remercie de m'avoir accordé un entretien pour le stage d'Administrateur Infrastructure Sécurisée.
+
+Notre échange m'a conforté dans mon intérêt pour votre entreprise et les missions proposées.
+
+Je reste à votre disposition pour toute information complémentaire.
+
+Cordialement,
+
+[PRENOM] [NOM]
+[FORMATION]
+[TÉLÉPHONE]
+[EMAIL]</textarea>
+                            <button class="btn btn-primary" onclick="copyEmailTemplate(this)">Copier le modèle</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Page Statistiques -->
+            <div id="statistics" class="page-section">
+                <div class="header">
+                    <h1>Statistiques de Recherche</h1>
+                    <button class="btn btn-success" onclick="exportToPDF()">
+                        <i class="fas fa-file-pdf"></i>
+                        Exporter PDF
+                    </button>
+                </div>
+                <div class="card">
+                    <div class="stats-chart">
+                        <h3>Répartition par statut</h3>
+                        <div id="statusChart"></div>
+                    </div>
+                    <div class="stats-chart">
+                        <h3>Taux de réponse par mois</h3>
+                        <div id="monthlyChart"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Universel (Candidature + Ciblage) -->
+    <div class="modal" id="universalModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="modal-title" id="universalModalTitle">Nouvelle Entrée</div>
+                <button class="close-btn" onclick="closeModal('universalModal')">&times;</button>
+            </div>
+            
+            <div class="modal-tabs">
+                <button class="modal-tab active" onclick="switchTab('candidature')">
+                    <i class="fas fa-paper-plane"></i> Candidature
+                </button>
+                <button class="modal-tab" onclick="switchTab('ciblage')">
+                    <i class="fas fa-bullseye"></i> Ciblage Détaillé
+                </button>
+            </div>
+            
+            <form id="universalForm">
+                <!-- Onglet Candidature -->
+                <div id="tab-candidature" class="tab-content active">
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label class="form-label">Entreprise *</label>
+                            <input type="text" class="form-control" id="entreprise" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Poste *</label>
+                            <input type="text" class="form-control" id="poste" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Date de candidature</label>
+                            <input type="date" class="form-control" id="dateCandidature">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Statut</label>
+                            <select class="form-control" id="statut">
+                                <option value="À postuler">À postuler</option>
+                                <option value="Envoyée">Envoyée</option>
+                                <option value="Relancée">Relancée</option>
+                                <option value="Entretien">Entretien</option>
+                                <option value="Refus">Refus</option>
+                                <option value="Accepté">Accepté</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Nom du contact</label>
+                            <input type="text" class="form-control" id="contactNom">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Email du contact</label>
+                            <input type="email" class="form-control" id="contactEmail">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Téléphone</label>
+                            <input type="tel" class="form-control" id="contactPhone">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Localisation</label>
+                            <input type="text" class="form-control" id="localisation" value="Montpellier">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Secteur / Activité</label>
+                            <input type="text" class="form-control" id="secteur">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Type d'entreprise</label>
+                            <select class="form-control" id="typeEntreprise">
+                                <option value="ESN">ESN</option>
+                                <option value="PME">PME</option>
+                                <option value="Grande Entreprise">Grande Entreprise</option>
+                                <option value="Startup">Startup</option>
+                                <option value="Établissement scolaire">Établissement scolaire</option>
+                                <option value="Multinationale">Multinationale</option>
+                                <option value="Éditeur">Éditeur</option>
+                            </select>
+                        </div>
+                        <div class="form-group full-width">
+                            <label class="form-label">Lien de l'offre</label>
+                            <input type="url" class="form-control" id="lien">
+                        </div>
+                        <div class="form-group full-width">
+                            <label class="form-label">Notes</label>
+                            <textarea class="form-control" id="notes" rows="3"></textarea>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Onglet Ciblage Détaillé -->
+                <div id="tab-ciblage" class="tab-content">
+                    <div class="form-grid">
+                        <div class="form-group full-width">
+                            <label class="form-label">Pourquoi cette entreprise m'intéresse</label>
+                            <textarea class="form-control" id="interet" rows="3" placeholder="Ex: Grande ESN avec projets cloud innovants, bonnes conditions de stage..."></textarea>
+                        </div>
+                        <div class="form-group full-width">
+                            <label class="form-label">Missions possibles</label>
+                            <textarea class="form-control" id="missionsPossibles" rows="2" placeholder="Ex: Administration infrastructure cloud, sécurité réseau, monitoring..."></textarea>
+                        </div>
+                        <div class="form-group full-width">
+                            <label class="form-label">Compétences à valoriser</label>
+                            <textarea class="form-control" id="competencesValoriser" rows="2" placeholder="Ex: VMware, Azure, sécurité réseau, PowerShell..."></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Première action</label>
+                            <select class="form-control" id="premiereAction">
+                                <option value="">Sélectionner</option>
+                                <option value="Email">Email</option>
+                                <option value="Téléphone">Téléphone</option>
+                                <option value="LinkedIn">LinkedIn</option>
+                                <option value="Site web">Site web</option>
+                                <option value="Candidature directe">Candidature directe</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Date premier contact</label>
+                            <input type="date" class="form-control" id="datePremierContact">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Date relance prévue</label>
+                            <input type="date" class="form-control" id="dateRelancePrevue">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Date 2ème relance</label>
+                            <input type="date" class="form-control" id="dateDeuxiemeRelance">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Réponse</label>
+                            <select class="form-control" id="reponse">
+                                <option value="">En attente</option>
+                                <option value="Oui">Oui</option>
+                                <option value="Non">Non</option>
+                                <option value="Peut-être">Peut-être</option>
+                                <option value="À rediscuter">À rediscuter</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="form-actions">
+                    <button type="button" class="btn btn-secondary" onclick="closeModal('universalModal')">Annuler</button>
+                    <button type="submit" class="btn btn-primary">Sauvegarder</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal Tâches -->
+    <div class="modal" id="taskModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="modal-title" id="taskModalTitle">Nouvelle Tâche</div>
+                <button class="close-btn" onclick="closeModal('taskModal')">&times;</button>
+            </div>
+            <form id="taskForm">
+                <div class="form-grid">
+                    <div class="form-group full-width">
+                        <label class="form-label">Titre de la tâche *</label>
+                        <input type="text" class="form-control" id="taskTitle" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Échéance</label>
+                        <input type="date" class="form-control" id="taskDueDate">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Priorité</label>
+                        <select class="form-control" id="taskPriority">
+                            <option value="low">Basse</option>
+                            <option value="medium">Moyenne</option>
+                            <option value="high">Haute</option>
+                        </select>
+                    </div>
+                    <div class="form-group full-width">
+                        <label class="form-label">Description</label>
+                        <textarea class="form-control" id="taskDescription" rows="3"></textarea>
+                    </div>
+                </div>
+                <div class="form-actions">
+                    <button type="button" class="btn btn-secondary" onclick="closeModal('taskModal')">Annuler</button>
+                    <button type="submit" class="btn btn-primary">Créer la tâche</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal Aperçu Template -->
+    <div class="modal" id="templatePreviewModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="modal-title" id="templatePreviewTitle">Aperçu du Modèle</div>
+                <button class="close-btn" onclick="closeModal('templatePreviewModal')">&times;</button>
+            </div>
+            <div class="template-preview" id="templatePreviewContent"></div>
+            <div class="preview-actions">
+                <button class="btn btn-secondary" onclick="closeModal('templatePreviewModal')">
+                    <i class="fas fa-times"></i> Fermer
+                </button>
+                <button class="btn btn-primary" onclick="downloadCurrentTemplate()">
+                    <i class="fas fa-download"></i> Télécharger
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // État de l'application
+        const state = {
+            candidatures: JSON.parse(localStorage.getItem('candidatures')) || [
+                {
+                    id: 1,
+                    entreprise: "Capgemini Montpellier",
+                    poste: "Stage Administrateur Infrastructure Cloud",
+                    date: new Date().toISOString().split('T')[0],
+                    statut: "Entretien",
+                    lien: "https://capgemini.com/carrieres",
+                    contactNom: "Jean Dupont",
+                    contactEmail: "jean.dupont@capgemini.com",
+                    contactPhone: "04 67 12 34 56",
+                    localisation: "Montpellier",
+                    secteur: "Services IT",
+                    typeEntreprise: "ESN",
+                    notes: "Entretien technique prévu le 20 novembre",
+                    interet: "Grande ESN avec nombreux projets cloud",
+                    missionsPossibles: "Administration infrastructure cloud, sécurité",
+                    competencesValoriser: "Cloud Azure, VMware, sécurité réseau",
+                    premiereAction: "Email",
+                    datePremierContact: new Date().toISOString().split('T')[0],
+                    dateRelancePrevue: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toISOString().split('T')[0],
+                    dateDeuxiemeRelance: "",
+                    reponse: "En attente"
+                },
+                {
+                    id: 2,
+                    entreprise: "Sopra Steria",
+                    poste: "Stagiaire Sécurité Réseau",
+                    date: new Date(Date.now() - 5 * 24 * 60 * 60 * 1000).toISOString().split('T')[0],
+                    statut: "Envoyée",
+                    lien: "https://soprasteria.com/emploi",
+                    contactNom: "Marie Martin",
+                    contactEmail: "marie.martin@soprasteria.com",
+                    contactPhone: "04 67 98 76 54",
+                    localisation: "Montpellier",
+                    secteur: "Conseil IT",
+                    typeEntreprise: "ESN",
+                    notes: "Relancer si pas de réponse avant le 25/11",
+                    interet: "Projets clients dans la banque et santé",
+                    missionsPossibles: "Sécurité réseau, audit",
+                    competencesValoriser: "Sécurité, réseau, PowerShell",
+                    premiereAction: "Email",
+                    datePremierContact: new Date(Date.now() - 5 * 24 * 60 * 60 * 1000).toISOString().split('T')[0],
+                    dateRelancePrevue: new Date(Date.now() + 2 * 24 * 60 * 60 * 1000).toISOString().split('T')[0],
+                    dateDeuxiemeRelance: "",
+                    reponse: "En attente"
+                }
+            ],
+            tasks: JSON.parse(localStorage.getItem('tasks')) || [
+                {
+                    id: 1,
+                    title: "Préparer entretien Capgemini",
+                    dueDate: new Date(Date.now() + 2 * 24 * 60 * 60 * 1000).toISOString().split('T')[0],
+                    priority: "high",
+                    completed: false,
+                    description: "Réviser les technologies cloud et sécurité"
+                },
+                {
+                    id: 2,
+                    title: "Relancer Sopra Steria",
+                    dueDate: new Date(Date.now() + 5 * 24 * 60 * 60 * 1000).toISOString().split('T')[0],
+                    priority: "medium",
+                    completed: false,
+                    description: "Envoyer email de relance"
+                },
+                {
+                    id: 3,
+                    title: "Mettre à jour CV",
+                    dueDate: new Date().toISOString().split('T')[0],
+                    priority: "low",
+                    completed: true,
+                    description: "Ajouter les derniers projets"
+                }
+            ],
+            entreprises: [
+                {
+                    id: 1,
+                    nom: "Capgemini",
+                    type: "ESN",
+                    secteur: "Services IT",
+                    site: "https://capgemini.com",
+                    adresse: "Montpellier",
+                    technologies: ["Cloud", "Azure", "AWS", "Sécurité"],
+                    contact: "carrieres@capgemini.com",
+                    notes: "Grande ESN, nombreux stages en infrastructure cloud"
+                },
+                {
+                    id: 2,
+                    nom: "Sopra Steria",
+                    type: "ESN",
+                    secteur: "Conseil IT",
+                    site: "https://soprasteria.com",
+                    adresse: "Montpellier",
+                    technologies: ["Sécurité", "Réseau", "Cloud", "DevOps"],
+                    contact: "recrutement@soprasteria.com",
+                    notes: "Projets clients dans la banque et santé"
+                },
+                {
+                    id: 3,
+                    nom: "IBM Montpellier",
+                    type: "Éditeur",
+                    secteur: "Technologies",
+                    site: "https://ibm.com",
+                    adresse: "Montpellier",
+                    technologies: ["AI", "Cloud", "Sécurité", "Big Data"],
+                    contact: "montpellier@ibm.com",
+                    notes: "Centre de compétences cloud et sécurité"
+                },
+                {
+                    id: 4,
+                    nom: "Orange Cyberdéfense",
+                    type: "Spécialiste",
+                    secteur: "Cybersécurité",
+                    site: "https://orange-cyberdefense.com",
+                    adresse: "Montpellier",
+                    technologies: ["SOC", "Sécurité", "Réseau", "Cloud"],
+                    contact: "recrutement@orange-cyberdefense.com",
+                    notes: "Leader français de la cybersécurité"
+                },
+                {
+                    id: 5,
+                    nom: "Atos",
+                    type: "ESN",
+                    secteur: "Services IT",
+                    site: "https://atos.net",
+                    adresse: "Montpellier",
+                    technologies: ["Cloud", "Infrastructure", "Sécurité", "Digital"],
+                    contact: "careers@atos.net",
+                    notes: "Grand groupe international, nombreux projets"
+                },
+                {
+                    id: 6,
+                    nom: "Accenture",
+                    type: "ESN",
+                    secteur: "Conseil",
+                    site: "https://accenture.com",
+                    adresse: "Montpellier",
+                    technologies: ["Transformation Digitale", "Cloud", "Sécurité"],
+                    contact: "france.careers@accenture.com",
+                    notes: "Cabinet de conseil en stratégie et technologie"
+                },
+                {
+                    id: 7,
+                    nom: "CGI",
+                    type: "ESN",
+                    secteur: "Services IT",
+                    site: "https://cgi.com",
+                    adresse: "Montpellier",
+                    technologies: ["Infrastructure", "Cloud", "Sécurité"],
+                    contact: "recrutement@cgi.com",
+                    notes: "ESN canadienne avec forte présence en France"
+                },
+                {
+                    id: 8,
+                    nom: "Devoteam",
+                    type: "ESN",
+                    secteur: "Transformation Digitale",
+                    site: "https://devoteam.com",
+                    adresse: "Montpellier",
+                    technologies: ["Cloud", "Sécurité", "Data", "Digital"],
+                    contact: "france@devoteam.com",
+                    notes: "Spécialiste de la transformation digitale"
+                },
+                {
+                    id: 9,
+                    nom: "NBS System",
+                    type: "Hébergeur",
+                    secteur: "Hosting & Sécurité",
+                    site: "https://nbs-system.com",
+                    adresse: "Montpellier",
+                    technologies: ["Hébergement", "Sécurité", "Cloud"],
+                    contact: "recrutement@nbs-system.com",
+                    notes: "Hébergeur français avec expertise sécurité"
+                },
+                {
+                    id: 10,
+                    nom: "Alter Way",
+                    type: "ESN",
+                    secteur: "Open Source",
+                    site: "https://alterway.fr",
+                    adresse: "Montpellier",
+                    technologies: ["Open Source", "Cloud", "DevOps"],
+                    contact: "rh@alterway.fr",
+                    notes: "Spécialiste des technologies open source"
+                },
+                {
+                    id: 11,
+                    nom: "Smile",
+                    type: "ESN",
+                    secteur: "Digital & Open Source",
+                    site: "https://smile.fr",
+                    adresse: "Montpellier",
+                    technologies: ["Open Source", "Cloud", "E-commerce"],
+                    contact: "recrutement@smile.fr",
+                    notes: "Expert en solutions digitales open source"
+                },
+                {
+                    id: 12,
+                    nom: "Talend",
+                    type: "Éditeur",
+                    secteur: "Data Integration",
+                    site: "https://talend.com",
+                    adresse: "Montpellier",
+                    technologies: ["Data", "Integration", "Cloud"],
+                    contact: "careers@talend.com",
+                    notes: "Éditeur de logiciels de data integration"
+                },
+                {
+                    id: 13,
+                    nom: "Bouygues Telecom",
+                    type: "Opérateur",
+                    secteur: "Télécommunications",
+                    site: "https://bouyguestelecom.fr",
+                    adresse: "Montpellier",
+                    technologies: ["Réseau", "Telecom", "Cloud"],
+                    contact: "recrutement@bouyguestelecom.fr",
+                    notes: "Opérateur télécom avec besoins en infrastructure"
+                },
+                {
+                    id: 14,
+                    nom: "Wavestone",
+                    type: "Cabinet Conseil",
+                    secteur: "Conseil IT",
+                    site: "https://wavestone.com",
+                    adresse: "Montpellier",
+                    technologies: ["Cybersécurité", "Cloud", "Transformation"],
+                    contact: "recrutement@wavestone.com",
+                    notes: "Cabinet de conseil en stratégie IT"
+                },
+                {
+                    id: 15,
+                    nom: "Thales",
+                    type: "Industrie",
+                    secteur: "Défense & Sécurité",
+                    site: "https://thalesgroup.com",
+                    adresse: "Montpellier",
+                    technologies: ["Cybersécurité", "Cloud", "Sécurité"],
+                    contact: "recrutement@thalesgroup.com",
+                    notes: "Expert en systèmes critiques et sécurité"
+                },
+                {
+                    id: 16,
+                    nom: "DXC Technology",
+                    type: "ESN",
+                    secteur: "Services IT",
+                    site: "https://dxc.com",
+                    adresse: "Montpellier",
+                    technologies: ["Infrastructure", "Cloud", "Sécurité"],
+                    contact: "careers@dxc.com",
+                    notes: "ESN internationale issue de HP Enterprise"
+                },
+                {
+                    id: 17,
+                    nom: "SMILE",
+                    type: "ESN",
+                    secteur: "Open Source",
+                    site: "https://smile.eu",
+                    adresse: "Montpellier",
+                    technologies: ["Open Source", "Cloud", "DevOps"],
+                    contact: "emploi@smile.eu",
+                    notes: "Expert open source et solutions digitales"
+                },
+                {
+                    id: 18,
+                    nom: "Oxalys",
+                    type: "ESN",
+                    secteur: "Services IT",
+                    site: "https://oxalys.com",
+                    adresse: "Montpellier",
+                    technologies: ["Cloud", "DevOps", "Sécurité"],
+                    contact: "recrutement@oxalys.com",
+                    notes: "ESN spécialisée dans les technologies cloud"
+                },
+                {
+                    id: 19,
+                    nom: "SQLI",
+                    type: "ESN",
+                    secteur: "Digital Experience",
+                    site: "https://sqli.com",
+                    adresse: "Montpellier",
+                    technologies: ["Digital", "Cloud", "E-commerce"],
+                    contact: "recrutement@sqli.com",
+                    notes: "Expert en expérience digitale et commerce"
+                },
+                {
+                    id: 20,
+                    nom: "Amaris",
+                    type: "ESN",
+                    secteur: "Conseil IT",
+                    site: "https://amaris.com",
+                    adresse: "Montpellier",
+                    technologies: ["Consulting", "Transformation", "Digital"],
+                    contact: "careers@amaris.com",
+                    notes: "Cabinet de conseil en management et technologie"
+                }
+            ],
+            currentFilter: 'all',
+            editingCandidatureId: null,
+            editingTaskId: null,
+            currentCalendarDate: new Date(),
+            currentModalTab: 'candidature',
+            currentTemplateType: null
+        };
+
+        // Initialisation
+        document.addEventListener('DOMContentLoaded', function() {
+            initializeApp();
+        });
+
+        function initializeApp() {
+            renderCandidatures();
+            renderTasks();
+            renderTargeting();
+            renderEntreprises();
+            renderCalendar();
+            renderStatistics();
+            updateStats();
+            updateGlobalProgress();
+            setupEventListeners();
+        }
+
+        function setupEventListeners() {
+            document.getElementById('universalForm').addEventListener('submit', handleUniversalSubmit);
+            document.getElementById('taskForm').addEventListener('submit', handleTaskSubmit);
+            
+            window.addEventListener('click', function(event) {
+                if (event.target.classList.contains('modal')) {
+                    event.target.style.display = 'none';
+                }
+            });
+        }
+
+        // Navigation
+        function showPage(pageId) {
+            document.querySelectorAll('.page-section').forEach(page => {
+                page.classList.remove('active');
+            });
+            document.querySelectorAll('.nav-item').forEach(item => {
+                item.classList.remove('active');
+            });
+            
+            document.getElementById(pageId).classList.add('active');
+            event.target.classList.add('active');
+
+            switch(pageId) {
+                case 'calendar':
+                    renderCalendar();
+                    break;
+                case 'statistics':
+                    renderStatistics();
+                    break;
+                case 'targeting':
+                    renderTargeting();
+                    break;
+                case 'entreprises':
+                    renderEntreprises();
+                    break;
+                case 'documents':
+                    break;
+            }
+        }
+
+        // Tableau de Ciblage
+        function renderTargeting() {
+            const container = document.getElementById('targetingList');
+            if (!container) return;
+
+            if (state.candidatures.length === 0) {
+                container.innerHTML = '<tr><td colspan="10" style="text-align: center; padding: 20px; color: var(--gray);">Aucune entrée de ciblage</td></tr>';
+                return;
+            }
+
+            container.innerHTML = state.candidatures.map(item => `
+                <tr>
+                    <td class="company-cell">${item.entreprise}</td>
+                    <td>
+                        ${item.contactNom ? `<div><strong>${item.contactNom}</strong></div>` : ''}
+                        ${item.contactEmail ? `<div style="font-size: 0.8em;">${item.contactEmail}</div>` : ''}
+                        ${item.contactPhone ? `<div style="font-size: 0.8em;">${item.contactPhone}</div>` : ''}
+                    </td>
+                    <td>${item.localisation || 'Montpellier'}</td>
+                    <td>${item.secteur || ''}</td>
+                    <td>${item.typeEntreprise || ''}</td>
+                    <td>${item.poste}</td>
+                    <td>
+                        <span class="status-badge status-${getStatusClass(item.statut)}">${item.statut}</span>
+                    </td>
+                    <td>
+                        ${item.date ? `<div><strong>Candidature:</strong> ${formatDate(item.date)}</div>` : ''}
+                        ${item.dateRelancePrevue ? `<div><strong>Relance:</strong> ${formatDate(item.dateRelancePrevue)}</div>` : ''}
+                    </td>
+                    <td>
+                        ${item.reponse ? `<span class="response-badge response-${getResponseClass(item.reponse)}">${item.reponse}</span>` : 'En attente'}
+                    </td>
+                    <td>
+                        <div class="targeting-actions">
+                            <button onclick="editCandidature(${item.id})" class="btn btn-primary" style="padding: 4px 8px; font-size: 0.8em;">
+                                <i class="fas fa-edit"></i>
+                            </button>
+                            <button onclick="deleteCandidature(${item.id})" class="btn btn-secondary" style="padding: 4px 8px; font-size: 0.8em;">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+            `).join('');
+        }
+
+        // Gestion des candidatures (universel)
+        function renderCandidatures() {
+            renderCandidaturesList('candidaturesList');
+            renderCandidaturesList('allCandidaturesList');
+        }
+
+        function renderCandidaturesList(containerId) {
+            const container = document.getElementById(containerId);
+            if (!container) return;
+
+            const filteredCandidatures = state.currentFilter === 'all' 
+                ? state.candidatures 
+                : state.candidatures.filter(c => c.statut === state.currentFilter);
+
+            if (filteredCandidatures.length === 0) {
+                container.innerHTML = '<div class="candidature-item" style="text-align: center; color: var(--gray);">Aucune candidature</div>';
+                return;
+            }
+
+            container.innerHTML = filteredCandidatures.map(candidature => `
+                <div class="candidature-item">
+                    <div class="candidature-header">
+                        <div class="entreprise">${candidature.entreprise}</div>
+                        <div class="status-badge status-${getStatusClass(candidature.statut)}">${candidature.statut}</div>
+                    </div>
+                    <div class="poste">${candidature.poste}</div>
+                    <div class="candidature-meta">
+                        <span><i class="far fa-calendar"></i> ${formatDate(candidature.date)}</span>
+                        ${candidature.contactNom ? `<span><i class="far fa-user"></i> ${candidature.contactNom}</span>` : ''}
+                        ${candidature.localisation ? `<span><i class="fas fa-map-marker-alt"></i> ${candidature.localisation}</span>` : ''}
+                    </div>
+                    ${candidature.notes ? `<div style="color: var(--gray); font-size: 0.9em; margin-top: 10px;">${candidature.notes}</div>` : ''}
+                    <div style="margin-top: 15px; display: flex; gap: 10px;">
+                        <button onclick="editCandidature(${candidature.id})" class="btn btn-primary" style="padding: 6px 12px; font-size: 0.8em;">
+                            <i class="fas fa-edit"></i> Modifier
+                        </button>
+                        <button onclick="deleteCandidature(${candidature.id})" class="btn btn-secondary" style="padding: 6px 12px; font-size: 0.8em;">
+                            <i class="fas fa-trash"></i> Supprimer
+                        </button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function handleUniversalSubmit(e) {
+            e.preventDefault();
+            const formData = {
+                entreprise: document.getElementById('entreprise').value,
+                poste: document.getElementById('poste').value,
+                date: document.getElementById('dateCandidature').value || new Date().toISOString().split('T')[0],
+                statut: document.getElementById('statut').value,
+                lien: document.getElementById('lien').value,
+                contactNom: document.getElementById('contactNom').value,
+                contactEmail: document.getElementById('contactEmail').value,
+                contactPhone: document.getElementById('contactPhone').value,
+                localisation: document.getElementById('localisation').value,
+                secteur: document.getElementById('secteur').value,
+                typeEntreprise: document.getElementById('typeEntreprise').value,
+                notes: document.getElementById('notes').value,
+                interet: document.getElementById('interet').value,
+                missionsPossibles: document.getElementById('missionsPossibles').value,
+                competencesValoriser: document.getElementById('competencesValoriser').value,
+                premiereAction: document.getElementById('premiereAction').value,
+                datePremierContact: document.getElementById('datePremierContact').value,
+                dateRelancePrevue: document.getElementById('dateRelancePrevue').value,
+                dateDeuxiemeRelance: document.getElementById('dateDeuxiemeRelance').value,
+                reponse: document.getElementById('reponse').value
+            };
+
+            if (state.editingCandidatureId) {
+                const index = state.candidatures.findIndex(c => c.id === state.editingCandidatureId);
+                state.candidatures[index] = { ...state.candidatures[index], ...formData };
+                showNotification('Entrée modifiée', 'success');
+            } else {
+                const newId = state.candidatures.length > 0 ? Math.max(...state.candidatures.map(c => c.id)) + 1 : 1;
+                state.candidatures.push({ id: newId, ...formData });
+                showNotification('Entrée ajoutée', 'success');
+            }
+
+            saveToLocalStorage();
+            renderCandidatures();
+            renderTargeting();
+            renderCalendar();
+            updateStats();
+            updateGlobalProgress();
+            closeModal('universalModal');
+        }
+
+        function editCandidature(id) {
+            const candidature = state.candidatures.find(c => c.id === id);
+            if (candidature) {
+                document.getElementById('entreprise').value = candidature.entreprise;
+                document.getElementById('poste').value = candidature.poste;
+                document.getElementById('dateCandidature').value = candidature.date;
+                document.getElementById('statut').value = candidature.statut;
+                document.getElementById('lien').value = candidature.lien || '';
+                document.getElementById('contactNom').value = candidature.contactNom || '';
+                document.getElementById('contactEmail').value = candidature.contactEmail || '';
+                document.getElementById('contactPhone').value = candidature.contactPhone || '';
+                document.getElementById('localisation').value = candidature.localisation || 'Montpellier';
+                document.getElementById('secteur').value = candidature.secteur || '';
+                document.getElementById('typeEntreprise').value = candidature.typeEntreprise || 'ESN';
+                document.getElementById('notes').value = candidature.notes || '';
+                document.getElementById('interet').value = candidature.interet || '';
+                document.getElementById('missionsPossibles').value = candidature.missionsPossibles || '';
+                document.getElementById('competencesValoriser').value = candidature.competencesValoriser || '';
+                document.getElementById('premiereAction').value = candidature.premiereAction || '';
+                document.getElementById('datePremierContact').value = candidature.datePremierContact || '';
+                document.getElementById('dateRelancePrevue').value = candidature.dateRelancePrevue || '';
+                document.getElementById('dateDeuxiemeRelance').value = candidature.dateDeuxiemeRelance || '';
+                document.getElementById('reponse').value = candidature.reponse || '';
+                
+                document.getElementById('universalModalTitle').textContent = 'Modifier l\'Entrée';
+                state.editingCandidatureId = id;
+                openUniversalModal('candidature');
+            }
+        }
+
+        function deleteCandidature(id) {
+            if (confirm('Supprimer cette entrée ?')) {
+                state.candidatures = state.candidatures.filter(c => c.id !== id);
+                saveToLocalStorage();
+                renderCandidatures();
+                renderTargeting();
+                renderCalendar();
+                updateStats();
+                updateGlobalProgress();
+                showNotification('Entrée supprimée', 'warning');
+            }
+        }
+
+        // Gestion des tâches
+        function renderTasks() {
+            renderTasksList('taskList');
+            renderTasksList('allTasksList');
+        }
+
+        function renderTasksList(containerId) {
+            const container = document.getElementById(containerId);
+            if (!container) return;
+
+            const tasksToShow = containerId === 'taskList' 
+                ? state.tasks.filter(task => !task.completed)
+                : state.tasks;
+
+            if (tasksToShow.length === 0) {
+                container.innerHTML = '<div class="task-item" style="text-align: center; color: var(--gray);">Aucune tâche</div>';
+                return;
+            }
+
+            container.innerHTML = tasksToShow.map(task => `
+                <div class="task-item">
+                    <div class="task-checkbox ${task.completed ? 'checked' : ''}" onclick="toggleTask(${task.id})">
+                        ${task.completed ? '<i class="fas fa-check"></i>' : ''}
+                    </div>
+                    <div class="task-content">
+                        <div class="task-title" style="${task.completed ? 'text-decoration: line-through;' : ''}">${task.title}</div>
+                        <div class="task-meta">
+                            ${task.dueDate ? `<i class="far fa-calendar"></i> ${formatDate(task.dueDate)}` : ''}
+                            ${task.priority ? ` • Priorité: ${getPriorityText(task.priority)}` : ''}
+                        </div>
+                    </div>
+                    <div class="task-actions">
+                        <button class="task-action" onclick="editTask(${task.id})">
+                            <i class="fas fa-edit"></i>
+                        </button>
+                        <button class="task-action" onclick="deleteTask(${task.id})">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function handleTaskSubmit(e) {
+            e.preventDefault();
+            const formData = {
+                title: document.getElementById('taskTitle').value,
+                dueDate: document.getElementById('taskDueDate').value,
+                priority: document.getElementById('taskPriority').value,
+                description: document.getElementById('taskDescription').value,
+                completed: false
+            };
+
+            if (state.editingTaskId) {
+                const index = state.tasks.findIndex(t => t.id === state.editingTaskId);
+                state.tasks[index] = { ...state.tasks[index], ...formData };
+                showNotification('Tâche modifiée', 'success');
+            } else {
+                const newId = state.tasks.length > 0 ? Math.max(...state.tasks.map(t => t.id)) + 1 : 1;
+                state.tasks.push({ id: newId, ...formData });
+                showNotification('Tâche ajoutée', 'success');
+            }
+
+            saveToLocalStorage();
+            renderTasks();
+            renderCalendar();
+            closeModal('taskModal');
+        }
+
+        function toggleTask(id) {
+            const task = state.tasks.find(t => t.id === id);
+            if (task) {
+                task.completed = !task.completed;
+                saveToLocalStorage();
+                renderTasks();
+            }
+        }
+
+        function editTask(id) {
+            const task = state.tasks.find(t => t.id === id);
+            if (task) {
+                document.getElementById('taskTitle').value = task.title;
+                document.getElementById('taskDueDate').value = task.dueDate || '';
+                document.getElementById('taskPriority').value = task.priority;
+                document.getElementById('taskDescription').value = task.description || '';
+                
+                document.getElementById('taskModalTitle').textContent = 'Modifier la Tâche';
+                state.editingTaskId = id;
+                openModal('taskModal');
+            }
+        }
+
+        function deleteTask(id) {
+            if (confirm('Supprimer cette tâche ?')) {
+                state.tasks = state.tasks.filter(t => t.id !== id);
+                saveToLocalStorage();
+                renderTasks();
+                renderCalendar();
+                showNotification('Tâche supprimée', 'warning');
+            }
+        }
+
+        // Entreprises Montpellier
+        function renderEntreprises() {
+            const container = document.getElementById('entreprisesList');
+            if (!container) return;
+
+            container.innerHTML = state.entreprises.map(entreprise => `
+                <div class="entreprise-card">
+                    <div class="entreprise-card-header">
+                        <div class="entreprise-name">${entreprise.nom}</div>
+                        <div class="entreprise-type">${entreprise.type}</div>
+                    </div>
+                    <div class="entreprise-details">
+                        <div><strong>Secteur:</strong> ${entreprise.secteur}</div>
+                        <div><strong>Localisation:</strong> ${entreprise.adresse}</div>
+                        <div><strong>Site:</strong> <a href="${entreprise.site}" target="_blank">${entreprise.site}</a></div>
+                        ${entreprise.contact ? `<div><strong>Contact:</strong> ${entreprise.contact}</div>` : ''}
+                    </div>
+                    <div class="entreprise-tags">
+                        ${entreprise.technologies.map(tech => `<span class="tag">${tech}</span>`).join('')}
+                    </div>
+                    <div style="margin-top: 15px; display: flex; gap: 10px;">
+                        <button onclick="postulerEntreprise('${entreprise.nom}')" class="btn btn-primary" style="padding: 8px 15px; font-size: 0.8em;">
+                            <i class="fas fa-paper-plane"></i> Postuler
+                        </button>
+                        <button onclick="window.open('${entreprise.site}', '_blank')" class="btn btn-secondary" style="padding: 8px 15px; font-size: 0.8em;">
+                            <i class="fas fa-external-link-alt"></i> Visiter
+                        </button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function postulerEntreprise(nom) {
+            document.getElementById('entreprise').value = nom;
+            openUniversalModal('candidature');
+        }
+
+        // Calendrier
+        function renderCalendar() {
+            const container = document.getElementById('calendarView');
+            if (!container) return;
+
+            const today = new Date();
+            const currentMonth = state.currentCalendarDate.getMonth();
+            const currentYear = state.currentCalendarDate.getFullYear();
+
+            container.innerHTML = `
+                <div class="calendar-header">
+                    <h2>${getMonthName(currentMonth)} ${currentYear}</h2>
+                    <div>
+                        <button class="btn btn-secondary" onclick="changeMonth(-1)">
+                            <i class="fas fa-chevron-left"></i>
+                        </button>
+                        <button class="btn btn-secondary" onclick="changeMonth(0)" style="margin: 0 10px;">
+                            Aujourd'hui
+                        </button>
+                        <button class="btn btn-secondary" onclick="changeMonth(1)">
+                            <i class="fas fa-chevron-right"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="calendar-grid">
+                    <div class="calendar-day header">Lun</div>
+                    <div class="calendar-day header">Mar</div>
+                    <div class="calendar-day header">Mer</div>
+                    <div class="calendar-day header">Jeu</div>
+                    <div class="calendar-day header">Ven</div>
+                    <div class="calendar-day header">Sam</div>
+                    <div class="calendar-day header">Dim</div>
+                    ${generateCalendarDays(currentYear, currentMonth, today)}
+                </div>
+            `;
+        }
+
+        function generateCalendarDays(year, month, today) {
+            const firstDay = new Date(year, month, 1);
+            const lastDay = new Date(year, month + 1, 0);
+            const startDay = firstDay.getDay() === 0 ? 6 : firstDay.getDay() - 1;
+            
+            let daysHTML = '';
+            
+            // Jours vides
+            for (let i = 0; i < startDay; i++) {
+                daysHTML += '<div class="calendar-day"></div>';
+            }
+            
+            // Jours du mois
+            for (let day = 1; day <= lastDay.getDate(); day++) {
+                const dateStr = `${year}-${String(month + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
+                const hasEvent = state.candidatures.some(c => c.date === dateStr) || state.tasks.some(t => t.dueDate === dateStr);
+                const isToday = day === today.getDate() && month === today.getMonth() && year === today.getFullYear();
+                
+                let dayClass = 'calendar-day';
+                if (isToday) dayClass += ' today';
+                if (hasEvent) dayClass += ' has-event';
+                
+                daysHTML += `<div class="${dayClass}" onclick="showDayEvents('${dateStr}')">${day}${hasEvent ? '<div class="calendar-event-dot"></div>' : ''}</div>`;
+            }
+            
+            return daysHTML;
+        }
+
+        function changeMonth(direction) {
+            if (direction === 0) {
+                state.currentCalendarDate = new Date();
+            } else {
+                state.currentCalendarDate = new Date(
+                    state.currentCalendarDate.getFullYear(),
+                    state.currentCalendarDate.getMonth() + direction,
+                    1
+                );
+            }
+            renderCalendar();
+        }
+
+        function showDayEvents(dateStr) {
+            const events = state.candidatures.filter(c => c.date === dateStr);
+            const tasks = state.tasks.filter(t => t.dueDate === dateStr);
+            
+            if (events.length === 0 && tasks.length === 0) {
+                showNotification('Aucun événement pour cette date', 'info');
+                return;
+            }
+            
+            let message = `Événements pour le ${formatDate(dateStr)}:\n\n`;
+            
+            if (events.length > 0) {
+                message += "📅 Candidatures:\n";
+                events.forEach(event => {
+                    message += `• ${event.entreprise} - ${event.poste} (${event.statut})\n`;
+                });
+                message += "\n";
+            }
+            
+            if (tasks.length > 0) {
+                message += "📝 Tâches:\n";
+                tasks.forEach(task => {
+                    const status = task.completed ? "✓ Terminée" : "⏳ En cours";
+                    message += `• ${task.title} (${getPriorityText(task.priority)}) - ${status}\n`;
+                });
+            }
+            
+            alert(message);
+        }
+
+        // Statistiques
+        function renderStatistics() {
+            const statusChart = document.getElementById('statusChart');
+            const monthlyChart = document.getElementById('monthlyChart');
+            
+            if (statusChart) {
+                // Calcul des statistiques par statut
+                const statsByStatus = {};
+                state.candidatures.forEach(c => {
+                    statsByStatus[c.statut] = (statsByStatus[c.statut] || 0) + 1;
+                });
+                
+                const total = state.candidatures.length;
+                let statusHTML = '';
+                
+                for (const [statut, count] of Object.entries(statsByStatus)) {
+                    const percentage = total > 0 ? (count / total * 100).toFixed(1) : 0;
+                    const width = total > 0 ? (count / total * 100) : 0;
+                    
+                    statusHTML += `
+                        <div style="margin-bottom: 8px;">
+                            <div style="display: flex; justify-content: space-between; margin-bottom: 4px;">
+                                <span>${statut}</span>
+                                <span>${count} (${percentage}%)</span>
+                            </div>
+                            <div class="chart-bar" style="width: ${width}%">
+                                ${count}
+                            </div>
+                        </div>
+                    `;
+                }
+                
+                if (total === 0) {
+                    statusHTML = '<div class="chart-bar" style="width: 100%">Aucune donnée</div>';
+                }
+                
+                statusChart.innerHTML = statusHTML;
+            }
+            
+            if (monthlyChart) {
+                // Statistiques par mois
+                monthlyChart.innerHTML = '<div class="chart-bar" style="width: 100%">Fonctionnalité en développement</div>';
+            }
+        }
+
+        // Templates de documents
+        function previewTemplate(type) {
+            state.currentTemplateType = type;
+            const content = createTemplateContent(type);
+            const title = getTemplateTitle(type);
+            
+            document.getElementById('templatePreviewTitle').textContent = title;
+            document.getElementById('templatePreviewContent').textContent = content;
+            openModal('templatePreviewModal');
+        }
+
+        function downloadCurrentTemplate() {
+            if (state.currentTemplateType) {
+                downloadTemplate(state.currentTemplateType);
+            }
+        }
+
+        function createTemplateContent(type) {
+            switch(type) {
+                case 'cv':
+                    return createCVTemplate();
+                case 'lettre':
+                    return createLettreTemplate();
+                case 'relance':
+                    return createRelanceTemplate();
+                case 'suivi':
+                    return createSuiviTemplate();
+                default:
+                    return "Modèle non disponible";
+            }
+        }
+
+        function getTemplateTitle(type) {
+            const titles = {
+                'cv': 'Modèle de CV - Administrateur Infrastructure Sécurisée',
+                'lettre': 'Modèle de Lettre de Motivation',
+                'relance': 'Modèle d\'Email de Relance',
+                'suivi': 'Tableau de Suivi des Candidatures'
+            };
+            return titles[type] || 'Modèle de document';
+        }
+
+        function downloadTemplate(type) {
+            let content, filename;
+            
+            switch(type) {
+                case 'cv':
+                    content = createCVTemplate();
+                    filename = 'modele-cv-infrastructure-securisee.txt';
+                    break;
+                case 'lettre':
+                    content = createLettreTemplate();
+                    filename = 'modele-lettre-motivation-infrastructure.txt';
+                    break;
+                case 'relance':
+                    content = createRelanceTemplate();
+                    filename = 'modele-email-relance.txt';
+                    break;
+                case 'suivi':
+                    content = createSuiviTemplate();
+                    filename = 'tableau-suivi-candidatures.csv';
+                    break;
+                default:
+                    return;
+            }
+            
+            const blob = new Blob([content], { type: type === 'suivi' ? 'text/csv' : 'text/plain' });
+            const url = window.URL.createObjectURL(blob);
+            const link = document.createElement('a');
+            link.href = url;
+            link.download = filename;
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            window.URL.revokeObjectURL(url);
+            
+            showNotification(`Modèle ${type} téléchargé`, 'success');
+            closeModal('templatePreviewModal');
+        }
+
+        function createCVTemplate() {
+            return `MODÈLE DE CV - ADMINISTRATEUR INFRASTRUCTURE SÉCURISÉE
+
+[PRÉNOM] [NOM]
+Montpellier | [Téléphone] | [Email] | LinkedIn
+
+PROFIL
+Administrateur infrastructure en formation, spécialisé en sécurité des systèmes. Passionné par les technologies cloud, la virtualisation et la cybersécurité. À la recherche d'un stage de fin d'études.
+
+COMPÉTENCES TECHNIQUES
+• Systèmes: Windows Server, Linux (Ubuntu, CentOS), Active Directory
+• Virtualisation: VMware, Hyper-V, Proxmox
+• Cloud: Azure, AWS, Office 365
+• Réseau: TCP/IP, DNS, DHCP, VLAN, Pare-feu
+• Sécurité: SIEM, IDS/IPS, PAM, Sécurité des endpoints
+• Monitoring: Zabbix, Nagios, Prometheus
+• Scripting: PowerShell, Bash, Python
+
+EXPÉRIENCE PROFESSIONNELLE
+[Année] - [Entreprise]
+Stage Administrateur Infrastructure
+• Gestion du parc serveurs virtualisés
+• Mise en place de solutions de sauvegarde
+• Surveillance et maintenance des systèmes
+• Support aux utilisateurs
+
+FORMATION
+[BAC+5] Administration Infrastructure Sécurisée
+[Établissement], Montpellier (2023-2026)
+
+LANGUES
+• Français: Langue maternelle
+• Anglais: Technique (B2)
+
+CENTRES D'INTÉRÉT
+• Veille technologique sécurité informatique
+• Participation à des hackathons sécurité
+• Réseautage professionnel IT`;
+        }
+
+        function createLettreTemplate() {
+            return `[Prénom] [NOM]
+[Adresse]
+[Téléphone] | [Email]
+
+[Date]
+
+[Entreprise]
+[Adresse]
+
+Objet: Candidature pour un stage d'Administrateur Infrastructure Sécurisée
+
+Madame, Monsieur,
+
+Actuellement en formation d'Administrateur Infrastructure Sécurisée, je me permets de vous soumettre ma candidature pour un stage dans votre entreprise.
+
+Au cours de ma formation, j'ai développé des compétences solides en administration des systèmes, virtualisation et sécurité informatique. Mon projet de lab personnel m'a permis de renforcer mes compétences pratiques dans la mise en place d'infrastructures sécurisées.
+
+Votre entreprise, reconnue pour son expertise en [secteur], représente pour moi l'environnement idéal pour approfondir mes connaissances et mettre en pratique mes compétences dans un contexte professionnel.
+
+Motivé, rigoureux et doté d'un bon esprit d'analyse, je suis convaincu que je pourrais apporter une réelle valeur ajoutée à votre équipe tout en poursuivant mon apprentissage.
+
+Je reste à votre disposition pour un entretien afin de vous exposer plus en détail mes motivations et compétences.
+
+Veuillez agréer, Madame, Monsieur, l'expression de mes salutations distinguées.
+
+[Prénom] [NOM]`;
+        }
+
+        function createRelanceTemplate() {
+            return `Objet: Relance candidature - Stage Administrateur Infrastructure
+
+Madame, Monsieur,
+
+Je me permets de relancer ma candidature pour le stage d'Administrateur Infrastructure Sécurisée.
+
+Suite à ma candidature envoyée le [date], je reste particulièrement intéressé(e) par cette opportunité et par la possibilité de rejoindre votre entreprise.
+
+Mon profil correspond aux compétences recherchées pour ce stage, notamment en matière d'administration système, de virtualisation et de sécurité.
+
+Je reste à votre disposition pour un éventuel entretien et me tiens à votre écoute pour toute information complémentaire.
+
+Cordialement,
+
+[Prénom] [NOM]
+[Formation]
+[Téléphone] | [Email]
+[LinkedIn (optionnel)]`;
+        }
+
+        function createSuiviTemplate() {
+            return `Entreprise;Poste;Date Candidature;Statut;Contact Nom;Contact Email;Contact Téléphone;Localisation;Secteur;Type Entreprise;Lien Offre;Notes;Date Relance Prévue;Réponse
+Capgemini;Stage Administrateur Infrastructure Cloud;2024-11-15;Entretien;Jean Dupont;jean.dupont@capgemini.com;04 67 12 34 56;Montpellier;Services IT;ESN;https://capgemini.com/carrieres;Entretien technique prévu le 20 novembre;2024-11-25;En attente
+Sopra Steria;Stagiaire Sécurité Réseau;2024-11-10;Envoyée;Marie Martin;marie.martin@soprasteria.com;04 67 98 76 54;Montpellier;Conseil IT;ESN;https://soprasteria.com/emploi;Relancer si pas de réponse avant le 25/11;2024-11-25;En attente`;
+        }
+
+        function copyEmailTemplate(button) {
+            const textarea = button.previousElementSibling;
+            textarea.select();
+            document.execCommand('copy');
+            showNotification('Modèle copié dans le presse-papier', 'success');
+        }
+
+        // Export CSV du tableau de ciblage
+        function exportTargetingToCSV() {
+            if (state.candidatures.length === 0) {
+                showNotification('Aucune donnée à exporter', 'warning');
+                return;
+            }
+
+            const headers = [
+                'Entreprise', 'Poste', 'Date Candidature', 'Statut', 'Contact Nom', 'Contact Email', 'Contact Téléphone',
+                'Localisation', 'Secteur', 'Type Entreprise', 'Lien', 'Notes', 'Intérêt', 'Missions Possibles',
+                'Compétences à valoriser', 'Première Action', 'Date Premier Contact', 'Date Relance Prévue',
+                'Date 2ème Relance', 'Réponse'
+            ];
+
+            const rows = state.candidatures.map(item => [
+                `"${item.entreprise || ''}"`,
+                `"${item.poste || ''}"`,
+                `"${item.date || ''}"`,
+                `"${item.statut || ''}"`,
+                `"${item.contactNom || ''}"`,
+                `"${item.contactEmail || ''}"`,
+                `"${item.contactPhone || ''}"`,
+                `"${item.localisation || ''}"`,
+                `"${item.secteur || ''}"`,
+                `"${item.typeEntreprise || ''}"`,
+                `"${item.lien || ''}"`,
+                `"${item.notes || ''}"`,
+                `"${item.interet || ''}"`,
+                `"${item.missionsPossibles || ''}"`,
+                `"${item.competencesValoriser || ''}"`,
+                `"${item.premiereAction || ''}"`,
+                `"${item.datePremierContact || ''}"`,
+                `"${item.dateRelancePrevue || ''}"`,
+                `"${item.dateDeuxiemeRelance || ''}"`,
+                `"${item.reponse || ''}"`
+            ]);
+
+            const csvContent = [
+                headers.join(';'),
+                ...rows.map(row => row.join(';'))
+            ].join('\n');
+
+            const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+            const url = window.URL.createObjectURL(blob);
+            const link = document.createElement('a');
+            link.href = url;
+            link.download = `tableau-ciblage-${new Date().toISOString().split('T')[0]}.csv`;
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            window.URL.revokeObjectURL(url);
+            
+            showNotification('Tableau exporté en CSV', 'success');
+        }
+
+        // Modal functions
+        function openUniversalModal(defaultTab = 'candidature') {
+            document.getElementById('universalModalTitle').textContent = 'Nouvelle Entrée';
+            document.getElementById('dateCandidature').value = new Date().toISOString().split('T')[0];
+            document.getElementById('datePremierContact').value = new Date().toISOString().split('T')[0];
+            
+            const nextWeek = new Date();
+            nextWeek.setDate(nextWeek.getDate() + 7);
+            document.getElementById('dateRelancePrevue').value = nextWeek.toISOString().split('T')[0];
+            
+            state.editingCandidatureId = null;
+            switchTab(defaultTab);
+            openModal('universalModal');
+        }
+
+        function switchTab(tabName) {
+            state.currentModalTab = tabName;
+            
+            document.querySelectorAll('.modal-tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            document.querySelectorAll('.tab-content').forEach(content => {
+                content.classList.remove('active');
+            });
+            
+            event.target.classList.add('active');
+            document.getElementById(`tab-${tabName}`).classList.add('active');
+        }
+
+        function openModal(modalId) {
+            document.getElementById(modalId).style.display = 'flex';
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).style.display = 'none';
+            resetForms();
+        }
+
+        function resetForms() {
+            document.getElementById('universalForm').reset();
+            document.getElementById('taskForm').reset();
+            state.editingCandidatureId = null;
+            state.editingTaskId = null;
+        }
+
+        // Utilitaires
+        function updateStats() {
+            const total = state.candidatures.length;
+            const enAttente = state.candidatures.filter(c => ['Envoyée', 'Relancée'].includes(c.statut)).length;
+            const entretiens = state.candidatures.filter(c => c.statut === 'Entretien').length;
+            const tauxReponse = total > 0 ? Math.round((enAttente / total) * 100) : 0;
+
+            document.getElementById('totalCandidatures').textContent = total;
+            document.getElementById('candidaturesEnAttente').textContent = enAttente;
+            document.getElementById('entretiensPlanifies').textContent = entretiens;
+            document.getElementById('tauxReponse').textContent = tauxReponse + '%';
+        }
+
+        function updateGlobalProgress() {
+            const progressFill = document.getElementById('globalProgress');
+            const progressText = document.getElementById('progressText');
+            const total = state.candidatures.length;
+            const progress = Math.min((total / 20) * 100, 100);
+            
+            if (progressFill) {
+                progressFill.style.width = progress + '%';
+                progressText.textContent = `${Math.round(progress)}% - ${total}/20 candidatures`;
+            }
+        }
+
+        function filterCandidatures(filter) {
+            state.currentFilter = filter;
+            document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+            renderCandidatures();
+        }
+
+        function exportToPDF() {
+            showNotification('Export PDF - Fonctionnalité à venir', 'info');
+        }
+
+        function refreshData() {
+            renderCandidatures();
+            renderTasks();
+            renderTargeting();
+            renderEntreprises();
+            renderCalendar();
+            updateStats();
+            updateGlobalProgress();
+            showNotification('Données actualisées', 'success');
+        }
+
+        // Helper functions
+        function formatDate(dateString) {
+            if (!dateString) return 'Non définie';
+            return new Date(dateString).toLocaleDateString('fr-FR');
+        }
+
+        function getStatusClass(statut) {
+            const classes = {
+                'À postuler': 'a-postuler',
+                'Envoyée': 'envoyee',
+                'Relancée': 'relancee',
+                'Entretien': 'entretien',
+                'Refus': 'refus',
+                'Accepté': 'accepte'
+            };
+            return classes[statut] || 'a-postuler';
+        }
+
+        function getResponseClass(response) {
+            const classes = {
+                'En attente': 'pending',
+                'Oui': 'yes',
+                'Non': 'no',
+                'Peut-être': 'maybe',
+                'À rediscuter': 'maybe'
+            };
+            return classes[response] || 'pending';
+        }
+
+        function getPriorityText(priority) {
+            const texts = {
+                'low': 'Basse',
+                'medium': 'Moyenne',
+                'high': 'Haute'
+            };
+            return texts[priority] || 'Moyenne';
+        }
+
+        function getMonthName(monthIndex) {
+            const months = ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre'];
+            return months[monthIndex];
+        }
+
+        function saveToLocalStorage() {
+            localStorage.setItem('candidatures', JSON.stringify(state.candidatures));
+            localStorage.setItem('tasks', JSON.stringify(state.tasks));
+        }
+
+        function showNotification(message, type = 'success') {
+            const container = document.getElementById('notificationContainer');
+            const notification = document.createElement('div');
+            notification.className = `notification ${type}`;
+            notification.innerHTML = `
+                <i class="fas fa-${type === 'success' ? 'check' : type === 'warning' ? 'exclamation' : 'times'}"></i>
+                <div>${message}</div>
+            `;
+            
+            container.appendChild(notification);
+            setTimeout(() => notification.classList.add('show'), 100);
+            setTimeout(() => {
+                notification.classList.remove('show');
+                setTimeout(() => notification.remove(), 300);
+            }, 4000);
+        }
+    </script>
+</body>
+</html>
